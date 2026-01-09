@@ -25,7 +25,8 @@ if city:
         st.session_state.messages = []
 
     # Create tabs
-    tabs = st.tabs(["Weather", "Air Quality", "Tourist Info", "Crime News", "Trends", "Find with City Pulse"]) 
+
+    tabs = st.tabs(["Weather", "Air Quality", "Tourist Info", "Crime News", "Trends", "Find with City Pulse","Mood Map"]) 
 
     # --- Existing Tabs (No changes needed for these sections) ---
     with tabs[0]:
@@ -140,4 +141,14 @@ with tabs[5]:
             st.chat_message("user").markdown(msg["text"])
         else:
             st.chat_message("assistant").markdown(msg["text"])
+
+    # Mood Map
+with tabs[6]:
+    st.header(f"Mood Map for {city}")
+    
+    mood_data = get_city_mood(city)  
+    st.metric("Overall Mood", mood_data["mood"])
+    st.write("📊 Mood Analysis based on recent data:")
+    st.bar_chart(mood_data["details"]) 
+
 
